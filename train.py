@@ -3,18 +3,13 @@ import tensorflow_datasets as tfds
 from model.build import build_model
 import os 
 
-
-
-
 os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
-
 
 ds_train, ds_val = tfds.load('imagenette', split=['train', 'validation'], shuffle_files=True,  as_supervised=True,)
 
 def normalize_img(image, label):
   image = tf.cast(image, tf.float32) / 255.
   image = tf.image.resize(image, [300,300])
-  print(image.shape)
   return image, label
 
 ds_train = ds_train.map(
