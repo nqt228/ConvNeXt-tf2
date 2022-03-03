@@ -1,7 +1,7 @@
 import tensorflow as tf 
 from tensorflow.keras.layers import Conv2D,LayerNormalization,ReLU,DepthwiseConv2D,Dense,GlobalAveragePooling2D, Input
 from tensorflow.keras import Sequential
-import tensorflow_addons as tfa   
+import tensorflow_addons as tfa 
 
 
 
@@ -18,7 +18,7 @@ class Block(tf.keras.layers.Layer):
 		self.norm = LayerNormalization(epsilon=1e-6)
 		self.pwconv1 = Conv2D(dim*4, kernel_size=1, padding='valid',
 			kernel_initializer=kernel_initial, bias_initializer=bias_initial)
-		self.act = ReLU()
+		self.act = tfa.layers.GELU()
 		self.pwconv2 = Conv2D(dim, kernel_size=1, padding = 'valid',
 			kernel_initializer=kernel_initial, bias_initializer=bias_initial)
 		self.stochastic_depth = tfa.layers.StochasticDepth(drop_prob)
